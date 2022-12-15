@@ -32,7 +32,7 @@ func SendMsgToKafka(msg domain.Message) {
 				if ev.TopicPartition.Error != nil {
 					fmt.Printf("Failed to deliver message: %v\n", ev.TopicPartition)
 				} else {
-					fmt.Printf("Produced event to topic %s: key = %-10s value = %s\n",
+					fmt.Printf("Produced event to topic %s: key = %-10s value = %s",
 						*ev.TopicPartition.Topic, string(ev.Key), string(ev.Value))
 				}
 			}

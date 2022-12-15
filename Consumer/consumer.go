@@ -15,6 +15,8 @@ func main() {
 
 	conf := util.ReadConfig("getting-started.properties")
 
+	conf["group.id"] = "kafka-go-getting-started"
+    conf["auto.offset.reset"] = "earliest"
 	c, err := kafka.NewConsumer(&conf)
 
 	if err != nil {
@@ -41,8 +43,8 @@ func main() {
 				// Errors are informational and automatically handled by the consumer
 				continue
 			}
-			fmt.Printf("Consumed event from topic %s: key = %-10s value = %s\n",
-				*ev.TopicPartition.Topic, string(ev.Key), string(ev.Value))
+			fmt.Printf("Consumed event from topic: %s: key = %-10s value = %-10s timestamp = %-10s\n",
+				*ev.TopicPartition.Topic, string(ev.Key), string(ev.Value), ev.Timestamp)
 		}
 	}
 	c.Close()
